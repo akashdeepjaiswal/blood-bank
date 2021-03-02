@@ -1,51 +1,59 @@
 <%- include('header', {title:"Pending Requests"}); -%>
 
     <div class="container">
-        <table class="table" style="width:90vw">
-            <thead>
-                <tr>
-                    <th>Request Id</th>
-                    <th>Patient Id</th>
-                    <th>Hospital Id</th>
-                    <th>Blood Type</th>
-                    <th>Quantity</th>
-                    <th>Approved</th>
-                    <th>Time</th>
-                    <!-- id, patient_id, hospital_id, blood_type, quantity, approved, time -->
-                </tr>
-            </thead>
-            <tbody>
-                <% request_details.forEach(function (item) { %>
+       
+            <table class="table" style="width:90vw; height:400px;">
+                <thead>
                     <tr>
-                        <td>
-                            <%= item.id %>
-                        </td>
-                        <td>
-                            <%= item.patient_id %>
-                        </td>
-                        <td>
-                            <%= item.hospital_id %>
-                        </td>
-
-                        <td>
-                            <%= item.blood_type %>
-                        </td>
-                        <td>
-                            <%= item.quantity %>
-                        </td>
-                        <td>
-                            <%= item.approved %>
-                        </td>
-                        <td>
-                            <%= item.time %>
-                        </td>
+                        <th>Request Id</th>
+                        <th>Patient Id</th>
+                        <th>Hospital Id</th>
+                        <th>Blood Type</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Approve</th>
+                        <!-- id, patient_id, hospital_id, blood_type, quantity, approved, time -->
                     </tr>
-                    <% }) %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% request_details.forEach(function (item) { %>
+                        <tr>
+                            <td>
+                                <%= item.id %>
+                            </td>
+                            <td>
+                                <%= item.patient_id %>
+                            </td>
+                            <td>
+                                <%= item.hospital_id %>
+                            </td>
+
+                            <td>
+                                <%= item.blood_type %>
+                            </td>
+                            <td>
+                                <%= item.quantity %>
+                            </td>
+                            <td>
+                                <%= item.approved %>
+                            </td>
+                            
+                            <td>
+                                <form method="post" action="/hospital/requests">
+                                <div class="col-md-4 mb-3">
+                                    <input type="hidden" class="form-control " name="request_id" id="request_id" value=<%= item.id%> placeholder="Request id" >
+                                </div>
+                                <button type="submit" class="btn btn-primary">Approve</button>
+                            </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+       
     </div>
 
-    <div class="container">
+    <!-- <div class="container">
         <form method="post" action="/hospital/requests">
             <div class="form-row">
 
@@ -67,9 +75,9 @@
             </div>
             <button type="submit" class="btn btn-primary">Approve/Reject</button>
         </form>
-    </div>
+    </div> -->
 
     <a class="nav-link" href="/hospital/approved-request">See Approved Request</a>
     <a class="nav-link" href="/hospital/rejected-request">See Rejected Request</a>
-    
-<%- include('footer'); -%>
+
+    <%- include('footer'); -%>

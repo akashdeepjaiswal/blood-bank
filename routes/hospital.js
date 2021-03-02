@@ -195,7 +195,7 @@ router.get("/requests", function (req, res, next) {
       throw err;
     } else {
       // result= array of objects
-      console.log("result::  ", result);
+      // console.log("request detail  result::  ", result);
       obj = { request_details: result};
       res.render("hospital/requests", obj);
       obj = {};
@@ -206,10 +206,9 @@ router.get("/requests", function (req, res, next) {
 
 
 router.post("/requests", function (req, res) {
-// console.log("asas");
-console.log(req.body);
+
+console.log("requests ", req.body);
 const request_id=req.body.request_id;
-const new_status=req.body.choice;
 
 var query="SELECT * FROM blood_requests where id=" + request_id;
 connection.query(
@@ -219,12 +218,10 @@ connection.query(
     else {
       
       console.log("result: ", result);
-      var previous_status=result[0].approved;
 
-      if (result.length > 0 && previous_status=="N" ) {
+      if (result.length > 0 ) {
         var query =
-          "UPDATE blood_requests SET approved = "  +
-          new_status +
+          "UPDATE blood_requests SET approved = 'Y'"  +
           " WHERE id = " +
           request_id;
 
@@ -234,71 +231,16 @@ connection.query(
             if (err) throw err;
             else {
               console.log("result after updating the status of request ", result);
+              res.redirect("/hospital/requests");
             }
           }
         );
       } else {
-        var query =
-          "insert into blood_bank (hospital_id) values (" +
-          hospital_details.id +
-          "," +
-          ")";
-        connection.query(query, function (err, result, feilds) {
-          if (err) throw err;
-          else {
-            query =
-              "UPDATE blood_bank SET " +
-              blood_type +
-              "=" +
-              blood_type +
-              " +" +
-              unit +
-              " WHERE hospital_id = " +
-              hospital_details.id;
-            //Main query
-            connection.query(
-              query,
-              // "INSERT INTO hospital_data (name,contact,email,password) values (?)",
-              [formOutputPatient],
-              function (err, result, feilds) {
-                if (err) throw err;
-                else {
-                  console.log("Blood Added");
-                }
-              }
-            );
-          }
-        });
+        res.send("invalid request.")
       }
     }
   }
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
 

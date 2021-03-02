@@ -102,7 +102,7 @@ var obj = {};
 router.get("/available-blood", function (req, res, next) {
   // console.log("patient available blood:  ",req.body);
   var query =
-    "SELECT id, hospital_id,hospital_name, a_positive, a_negative, b_positive, b_negative, ab_positive, ab_negative, o_positive, o_negative FROM blood_bank";
+    "SELECT id, hospital_id, a_positive, a_negative, b_positive, b_negative, ab_positive, ab_negative, o_positive, o_negative FROM blood_bank";
 
   connection.query(query, function (err, result) {
     if (err) {
@@ -121,14 +121,14 @@ router.post("/available-blood", function (req, res) {
   console.log(req.body);
 
   const blood_type = req.body.bloodtype;
-  const unit = req.body.unit_requested;
+  // const unit = req.body.unit_requested;
   const hosp_id = req.body.hosp_id;
   const pat_id = req.body.pat_id;
-  var formOutputPatient = [pat_id, hosp_id, blood_type, unit];
+  var formOutputPatient = [pat_id, hosp_id, blood_type];
 
 //check for invalid entrys
   var query =
-    "insert into blood_requests (patient_id,hospital_id,blood_type,quantity) values (?)";
+    "insert into blood_requests (patient_id,hospital_id,blood_type) values (?)";
   connection.query(
     query, 
     [formOutputPatient], 
