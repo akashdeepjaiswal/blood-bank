@@ -3,7 +3,7 @@ create table hospital_data(
 id         		int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 name       		varchar(100) NOT NULL,
 email      		varchar(100) NOT NULL UNIQUE,
-password   		varchar(50) NOT NULL,
+password   		varchar(500) NOT NULL,
 contact    		varchar(20) NOT NULL
 );
 
@@ -12,7 +12,7 @@ create table patient_data(
 id          	int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 name        	varchar(100) NOT NULL,
 email       	varchar(100) NOT NULL UNIQUE,
-password    	varchar(50) NOT NULL,
+password    	varchar(500) NOT NULL,
 contact     	varchar(20) NOT NULL,
 blood_group 	enum('A+','A-','B+','B-','AB+','AB-','O+','O-')
 );

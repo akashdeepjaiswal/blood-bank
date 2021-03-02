@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var connection = require("../sql_conn");
+const bcrypt = require('bcrypt');
 
 var hospital_details;
 /* GET users listing. */
@@ -8,17 +9,20 @@ router.get("/", function (req, res, next) {
   res.render("hospital/signup_login_form");
 });
 
-router.post("/signup", function (req, res) {
+router.post("/signup", async function (req, res) {
   console.log(req.body);
   const name = req.body.name;
   const contact = req.body.contact;
   const email = req.body.email;
-  const password = req.body.password;
+
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  const password = hashedPassword;
+
   var formOutputPatient = [
-    req.body.name,
-    req.body.contact,
-    req.body.email,
-    req.body.password,
+    name,
+    contact,
+    email,
+    password,
   ];
 
   connection.query(
@@ -36,22 +40,22 @@ router.post("/signup", function (req, res) {
 
 router.post("/signin", function (req, res) {
   console.log(req.body);
+  
   const email = req.body.email;
   const password = req.body.password;
-  var formOutputPatient = [req.body.email, req.body.password];
-
+  var formOutputHospital = [email];
+  // console.log("hashedpass: ", hashedPassword);
   // var sql=
   connection.query(
-    "SELECT * FROM hospital_data WHERE email=? and password=? ",
-    // "SELECT count(*) as rows FROM hospital_data WHERE email=? and password=? ",
-    [email, password],
-    function (err, result, feilds) {
+    "SELECT * FROM hospital_data WHERE email=?",
+    formOutputHospital,
+    async function (err, result, fields) {
       if (err) throw err;
       else {
         // var rowCount=result[0].rows;
         // console.log("The result isssss: ", rowCount);
         console.log("result:::: from signin : ", result);
-        if (result.length > 0) {
+        if (result.length > 0 && (await bcrypt.compare(req.body.password, result[0].password))) {
           console.log(" Result is not null");
 
           hospital_details = result[0];
@@ -94,7 +98,7 @@ router.post("/add-blood", function (req, res) {
   connection.query(
     "SELECT * FROM blood_bank where hospital_id=" + hospital_details.id,
     // "SELECT count(*) as rows FROM hospital_data WHERE email=? and password=? ",
-    function (err, result, feilds) {
+    function (err, result, fields) {
       if (err) throw err;
       else {
         // var rowCount=result[0].rows;
@@ -115,7 +119,7 @@ router.post("/add-blood", function (req, res) {
             query,
             // "INSERT INTO hospital_data (name,contact,email,password) values (?)",
             [formOutputPatient],
-            function (err, result, feilds) {
+            function (err, result, fields) {
               if (err) throw err;
               else {
                 console.log("Blood Added");
@@ -127,7 +131,7 @@ router.post("/add-blood", function (req, res) {
             "insert into blood_bank (hospital_id) values (" +
             hospital_details.id +
             ")";
-          connection.query(query, function (err, result, feilds) {
+          connection.query(query, function (err, result, fields) {
             if (err) throw err;
             else {
               query =
@@ -144,7 +148,7 @@ router.post("/add-blood", function (req, res) {
                 query,
                 // "INSERT INTO hospital_data (name,contact,email,password) values (?)",
                 [formOutputPatient],
-                function (err, result, feilds) {
+                function (err, result, fields) {
                   if (err) throw err;
                   else {
                     console.log("Blood Added");
@@ -214,7 +218,7 @@ const new_status=req.body.choice;
 var query="SELECT * FROM blood_requests where id=" + request_id;
 connection.query(
   query,
-  function (err, result, feilds) {
+  function (err, result, fields) {
     if (err) throw err;
     else {
       
@@ -230,7 +234,7 @@ connection.query(
 
         connection.query(
           query,
-          function (err, result, feilds) {
+          function (err, result, fields) {
             if (err) throw err;
             else {
               console.log("result after updating the status of request ", result);
@@ -243,7 +247,7 @@ connection.query(
           hospital_details.id +
           "," +
           ")";
-        connection.query(query, function (err, result, feilds) {
+        connection.query(query, function (err, result, fields) {
           if (err) throw err;
           else {
             query =
@@ -260,7 +264,7 @@ connection.query(
               query,
               // "INSERT INTO hospital_data (name,contact,email,password) values (?)",
               [formOutputPatient],
-              function (err, result, feilds) {
+              function (err, result, fields) {
                 if (err) throw err;
                 else {
                   console.log("Blood Added");

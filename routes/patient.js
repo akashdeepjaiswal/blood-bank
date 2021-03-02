@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const bcrypt = require('bcrypt');
 var connection = require("../sql_conn");
 
 var patient_details;
@@ -8,19 +9,21 @@ router.get("/", function (req, res, next) {
   res.render("patient/signup_login_form");
 });
 
-router.post("/signup", function (req, res) {
+router.post("/signup", async function (req, res) {
   console.log(req.body);
   const name = req.body.name;
   const contact = req.body.contact;
   const bloodtype = req.body.bloodtype;
   const email = req.body.email;
-  const password = req.body.password;
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  const password = hashedPassword;
+
   var formOutputPatient = [
-    req.body.name,
-    req.body.email,
-    req.body.password,
-    req.body.contact,
-    req.body.bloodtype,
+    name,
+    email,
+    password,
+    contact,
+    bloodtype,
   ];
 
   connection.query(
@@ -52,14 +55,13 @@ router.post("/signin",function (req, res) {
   console.log(req.body);
   const email = req.body.email;
   const password = req.body.password;
-  var formOutputPatient = [req.body.email, req.body.password];
 
   // "SELECT COUNT (*) FROM patient_data WHERE email=? password=? ",
   connection.query(
-    "SELECT * FROM patient_data WHERE email=? and password=? ",
+    "SELECT * FROM patient_data WHERE email=? ",
     // "SELECT count(*) as rows FROM patient_data WHERE email=? and password=? ",
-    [email, password],
-    function (err, result, feilds) {
+    [email],
+    async function (err, result, feilds) {
       if (err) throw err;
       // if (err) {
       //   //we make sure theres an error (error obj)
@@ -73,7 +75,7 @@ router.post("/signin",function (req, res) {
       // }
       else {
         console.log("result:::: ", result);
-        if (result.length > 0) {
+        if (result.length > 0 && (await bcrypt.compare(req.body.password, result[0].password))) {
           console.log("patient_details result[0]:::: ", result[0]);
           console.log(" Result is not null");
           patient_details = result[0];
@@ -102,7 +104,7 @@ var obj = {};
 router.get("/available-blood", function (req, res, next) {
   // console.log("patient available blood:  ",req.body);
   var query =
-    "SELECT id, hospital_id,hospital_name, a_positive, a_negative, b_positive, b_negative, ab_positive, ab_negative, o_positive, o_negative FROM blood_bank";
+    "SELECT id, hospital_id, a_positive, a_negative, b_positive, b_negative, ab_positive, ab_negative, o_positive, o_negative FROM blood_bank";
 
   connection.query(query, function (err, result) {
     if (err) {
