@@ -3,33 +3,34 @@ var router = express.Router();
 var connection= require("../sql_conn");
 
 /* GET users listing. */
-router.get('/bloodinfo', function(req, res, next) {
-  res.render('hospital/blood_info');
-// res.send("working");
-});
+// router.get('/blood-info', function(req, res, next) {
+//   // res.render('hospital/blood_info');
+//   res.send("working");
+// // res.send("working");
+// });
 
-router.post("/bloodinfo", function (req, res) {
+router.post("/blood-info", function (req, res) {
     console.log(req.body);
-    const name = req.body.name;
-    const unit = req.body.unit;
-    var formOutputPatient = [
-      req.body.name,
-      req.body.contact,
-      req.body.email,
-      req.body.password
-    ];
+    // const name = req.body.name;
+    // const unit = req.body.unit;
+    // var formOutputPatient = [
+    //   req.body.name,
+    //   req.body.contact,
+    //   req.body.email,
+    //   req.body.password
+    // ];
   
-    connection.query(
-      "INSERT INTO hospital_data (name,contact,email,password) values (?)",
-      [formOutputPatient],
-      function (err, result) {
-        if (err) throw err;
-        console.log("The result is: ", result);
-      }
-    );
+    // connection.query(
+    //   "INSERT INTO hospital_data (name,contact,email,password) values (?)",
+    //   [formOutputPatient],
+    //   function (err, result) {
+    //     if (err) throw err;
+    //     console.log("The result is: ", result);
+    //   }
+    // );
   
     // res.redirect("/");
-    res.send("SignUp Successful");
+    res.send("Blood added Successful");
   });
   
   router.post("/signin", function (req, res) {

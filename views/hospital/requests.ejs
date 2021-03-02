@@ -1,0 +1,74 @@
+<%- include('header', {title:"Pending Requests"}); -%>
+
+    <div class="container">
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>Request Id</th>
+                    <th>Patient Id</th>
+                    <th>Hospital Id</th>
+                    <th>Blood Type</th>
+                    <th>Quantity</th>
+                    <th>Approved</th>
+                    <th>Time</th>
+                    <!-- id, patient_id, hospital_id, blood_type, quantity, approved, time -->
+                </tr>
+            </thead>
+            <tbody>
+                <% request_details.forEach(function (item) { %>
+                    <tr>
+                        <td>
+                            <%= item.id %>
+                        </td>
+                        <td>
+                            <%= item.patient_id %>
+                        </td>
+                        <td>
+                            <%= item.hospital_id %>
+                        </td>
+
+                        <td>
+                            <%= item.blood_type %>
+                        </td>
+                        <td>
+                            <%= item.quantity %>
+                        </td>
+                        <td>
+                            <%= item.approved %>
+                        </td>
+                        <td>
+                            <%= item.time %>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <form method="post" action="/hospital/requests">
+            <div class="form-row">
+
+                <div class="col-md-4 mb-3">
+                    <input type="number" min="1" class="form-control " name="request_id" id="request_id" placeholder="Request id" required>
+                    <small class="form-text text-muted">Please choose the <strong>Request Id </strong>carefully. </small>
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <select id="inputBloodType" name="choice" placeholder="Your Choice" class="form-control "
+                        required>
+                        <option value="" disabled selected>Select your option</option>
+                        <option value="Y">Y</option>
+                        <option value="R">R </option>
+                    </select>
+                    <small class="text-muted">Y: <strong>Approve</strong> R: <strong>Reject </strong>. </small>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Approve/Reject</button>
+        </form>
+    </div>
+
+    <a class="nav-link" href="/hospital/approved-request">See Approved Request</a>
+    <a class="nav-link" href="/hospital/rejected-request">See Rejected Request</a>
+<%- include('footer'); -%>

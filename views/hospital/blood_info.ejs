@@ -1,80 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Blood Info</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-</head>
-
-<body>
-    <h2>Add Available Blood Type</h2>
-
-    <form action="/hospital/bloodinfo" method="post">
+<%- include('header', {title:"Blood Information"}); -%>
 
 
-        <form>
-            <div class="form-row">
-              <div class="col-md-4 mb-3">
-                <label for="validationServer013">Blood Type</label>
-               
-                <select id="inputBloodType" name="bloodtype" placeholder="Blood Type" class="form-control "required>
-                    <option value="" disabled selected>Select your option</option>
-                    <option>A+</option>
-                    <option>B+</option>
-                    <option>B-</option>
-                </select>
-               
-              </div>
+<% if(blood_details.length>0) { %> 
+    <div>
+        <h2>view blood avaible in this hospitall. data from blood bank table</h2>
+    </div>
 
-              <div class="col-md-4 mb-3">
-                <label for="validationServer013">Blood Type</label>
-                <input type="text" class="form-control " id="validationServer013" placeholder="First name" required>
-              </div>
 
-              <div class="col-4">
+    <table id="table" >  
+        <thead>  
+            <tr>  
+                <th>Feilds</th>  
+                <th>Your Details</th>  
+            </tr>  
+        </thead>  
+         <tbody>  
+         <% blood_details.forEach(function (item) { %>
+            <tr>
+                <td>Blood-Bank ID</td>  
+                <td><%= item.id %></td>  
+            </tr>
+            <tr>
+                <td>Hospital ID</td>
+                <td><%= item.hospital_id %></td></tr>
+            <tr>
+                <td>A+</td>
+                <td><%= item.a_positive %> </td></tr> 
+            <tr>
+                <td>A-</td>
+                <td><%= item.a_negative %> </td></tr> 
+            <tr>
+                <td>B+</td>
+                <td><%= item.b_positive %> </td></tr> 
+            <tr>
+                <td>B-</td>
+                <td><%= item.b_negative %> </td></tr> 
+            <tr>
+                <td>AB+</td>
+                <td><%= item.ab_positive %> </td></tr> 
+            <tr>
+                <td>AB-</td>
+                <td><%= item.ab_negative %> </td></tr> 
+            <tr>
+                <td>O+</td>
+                <td><%= item.o_positive %> </td></tr>
+            
+            <tr>
+                <td>0-</td>
+                <td><%= item.o_negative  %> </td></tr>
+                                             
+         <% }) %>
+         </tbody>
+    </table>   
+
+    <% } else {%>
+
+        <div>
+        <h2>Your have no blood avaible in the blood bank.</h2>
+        <p>Please Update your Blood Bank via <strong>Add Blood</strong> tab.</p>
+    </div>
+    <%} %>
+  
+  
+ 
+                    <!-- id,   -->
                 
-            </div>
-
-
-              <div class="col-md-4 mb-3">
-                <label for="validationServer013">Blood Type</label>
-                <input type="text" class="form-control " id="validationServer013" placeholder="First name" required>
-              </div>
-
-            
-            <button class="btn btn-primary" type="submit">Submit form</button>
-          </form></div>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-            
-
-            <div class="col-4">
-                <button class="btn btn-success" type="submit">Add</button>
-            </div>
-
-        </div>
-    </form>
-</body>
-
-</html>
+    
+    <%- include('footer'); -%>    
