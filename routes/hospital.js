@@ -124,12 +124,8 @@ router.post("/add-blood", function (req, res) {
           );
         } else {
           var query =
-            "insert into blood_bank (hospital_id,hospital_name) values (" +
+            "insert into blood_bank (hospital_id) values (" +
             hospital_details.id +
-            "," +
-            "'" +
-            hospital_details.name +
-            "'" +
             ")";
           connection.query(query, function (err, result, feilds) {
             if (err) throw err;
@@ -152,6 +148,7 @@ router.post("/add-blood", function (req, res) {
                   if (err) throw err;
                   else {
                     console.log("Blood Added");
+                    res.send("Successfully Added blood");
                   }
                 }
               );
@@ -166,8 +163,11 @@ router.post("/add-blood", function (req, res) {
 //view blood info of hospital
 router.get("/view-blood-info", function (req, res, next) {
   var obj = {};
-  connection.query(
-    "SELECT * FROM blood_bank where hospital_id=" + hospital_details.id,
+  const sqlQuery = "SELECT * FROM blood_bank where hospital_id=" + hospital_details.id;
+  //  + " where a_positive IS NOT 0 AND a_negative IS NOT 0 AND b_positive IS NOT 0 AND b_negative IS NOT 0 AND ab_positive IS NOT 0  AND ab_negative IS NOT 0  AND o_positive IS NOT 0  AND o_negative IS NOT 0";
+  console.log('sqlQuery: ',sqlQuery);
+  connection.query(sqlQuery
+    ,
     function (err, result) {
       if (err) {
         throw err;
@@ -239,12 +239,9 @@ connection.query(
         );
       } else {
         var query =
-          "insert into blood_bank (hospital_id,hospital_name) values (" +
+          "insert into blood_bank (hospital_id) values (" +
           hospital_details.id +
           "," +
-          "'" +
-          hospital_details.name +
-          "'" +
           ")";
         connection.query(query, function (err, result, feilds) {
           if (err) throw err;

@@ -2,16 +2,17 @@
 
 
 <% if(blood_details.length>0) { %> 
+    <center>
     <div>
-        <h2>view blood avaible in this hospitall. data from blood bank table</h2>
+        <h2>Data from blood bank table</h2>
     </div>
 
 
-    <table id="table" >  
+    <table class="table"  style="width:90vw">  
         <thead>  
             <tr>  
                 <th>Feilds</th>  
-                <th>Your Details</th>  
+                <th>Values</th>  
             </tr>  
         </thead>  
          <tbody>  
@@ -52,6 +53,7 @@
          <% }) %>
          </tbody>
     </table>   
+</center>
 
     <% } else {%>
 
