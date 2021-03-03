@@ -47,8 +47,7 @@ router.post("/signin", function (req, res) {
           result.length > 0 &&
           (await bcrypt.compare(req.body.password, result[0].password))
         ) {
-          console.log("patient_details result[0]:::: ", result[0]);
-          console.log(" Result is not null");
+
           patient_details = result[0];
 
           res.render("patient/patient_dashboard", patient_details);
@@ -74,7 +73,7 @@ router.get("/available-blood", function (req, res, next) {
 
   var obj = {};
   var query =
-    "select blood_bank.id as id,name,a_positive,a_negative,b_positive,b_negative,ab_positive,ab_negative,o_positive,o_negative from hospital_data,blood_bank where hospital_id=hospital_data.id";
+    "select blood_bank.id as id,name,hospital_id,a_positive,a_negative,b_positive,b_negative,ab_positive,ab_negative,o_positive,o_negative from hospital_data,blood_bank where hospital_id=hospital_data.id";
 
   connection.query(query, function (err, result) {
     if (err) {
@@ -87,6 +86,7 @@ router.get("/available-blood", function (req, res, next) {
         pat_id: patient_details ? patient_details.id : "0",
       };
 
+      console.log("result----obj-- ",obj);
       res.render("patient/available_blood", obj);
     }
   });
@@ -96,9 +96,9 @@ router.post("/available-blood", function (req, res) {
   console.log(req.body);
 
   const blood_type = req.body.bloodtype;
-  const blood_bank_id = req.body.blood_bank_id;
+  const hospital_id = req.body.hospital_id;
   const pat_id = req.body.pat_id;
-  var formOutputPatient = [pat_id, blood_bank_id, blood_type];
+  var formOutputPatient = [pat_id, hospital_id, blood_type];
 
   if (pat_id === "0") {
     res.render("handle_message", { message: "Please SignIn as Patient" });
