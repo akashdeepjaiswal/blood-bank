@@ -1,116 +1,104 @@
 <%- include('header',{title: "Available Blood Type" }); -%>
+<% if(blood_details.length>0) { %>
+<div class="m-4">
+  <h2>View blood available in the Blood Bank</h2>
+</div>
 
-    <% if(blood_details.length>0) { %>
-        <div>
-            <h2>View blood available in the Blood Bank</h2>
-        </div>
+<div class="big-table-parent">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Hospital Name</th>
+        <th>A+</th>
+        <th>A-</th>
+        <th>B+</th>
+        <th>B-</th>
+        <th>AB+</th>
+        <th>AB-</th>
+        <th>O+</th>
+        <th>O-</th>
+        <!-- a_positive, a_negative, b_positive, b_negative, ab_positive, ab_negative, o_positive, o_negative -->
+      </tr>
+    </thead>
+    <tbody>
+      <% blood_details.forEach(function (item) { %>
+      <tr>
+        <td><%= item.id %></td>
 
-        <div class="big-table-parent">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Hospital Name</th>
-                        <th>A+</th>
-                        <th>A-</th>
-                        <th>B+</th>
-                        <th>B-</th>
-                        <th>AB+</th>
-                        <th>AB-</th>
-                        <th>O+</th>
-                        <th>O-</th>
-                        <!-- a_positive, a_negative, b_positive, b_negative, ab_positive, ab_negative, o_positive, o_negative -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <% blood_details.forEach(function (item) { %>
-                        <tr>
-                            <td>
-                                <%= item.id %>
-                            </td>
+        <td><%= item.name %></td>
+        <td><%= item.a_positive %></td>
+        <td><%= item.a_negative %></td>
+        <td><%= item.b_positive %></td>
+        <td><%= item.b_negative %></td>
+        <td><%= item.ab_positive %></td>
+        <td><%= item.ab_negative %></td>
+        <td><%= item.o_positive %></td>
+        <td><%= item.o_negative %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
 
-                            <td>
-                                <%= item.name %>
+<!-- request blood sample  -->
+<div class="container-fluid">
+  <form method="post" action="/patient/available-blood">
+      <div class="col-md-4 m-3">
+        <select
+          id="inputBloodType"
+          name="hospital_id"
+          placeholder="Blood Type"
+          class="form-control"
+          required
+        >
+          <option value="" disabled selected>Select Hospital</option>
+          <% blood_details.forEach(function (item) { %>
+          <option value=<%= item.hospital_id %> >
+              <%= item.id %> - <%= item.name%>
+          </option>
 
-                            </td>
-                            <td>
-                                <%= item.a_positive %>
-                            </td>
-                            <td>
-                                <%= item.a_negative %>
-                            </td>
-                            <td>
-                                <%= item.b_positive %>
-                            </td>
-                            <td>
-                                <%= item.b_negative %>
-                            </td>
-                            <td>
-                                <%= item.ab_positive %>
-                            </td>
-                            <td>
-                                <%= item.ab_negative %>
-                            </td>
-                            <td>
-                                <%= item.o_positive %>
-                            </td>
-                            <td>
-                                <%= item.o_negative %>
-                            </td>
-                        </tr>
-                        <% }) %>
-                </tbody>
-            </table>
-        </div>
+          <%}) %>
+        </select>
+      </div>
 
-        <!-- request blood sample  -->
-        <div class="container">
-            <form method="post" action="/patient/available-blood">
-                <div class="form-row">
+      <div class="col-md-4 m-3">
+        <select
+          id="inputBloodType"
+          name="bloodtype"
+          placeholder="Blood Type"
+          class="form-control"
+          required
+        >
+          <option value="" disabled selected>Select Blood Group</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+      </div>
 
-                    <div class="col-xs-4 mb-3 ">
-                            <select id="inputBloodType" name="hospital_id" placeholder="Blood Type" class="form-control "
-                            required>
-                            <option value="" disabled selected>Select Hospital</option>
-                            <% blood_details.forEach(function (item) { %>
-                            <option value=<%= item.hospital_id %> > <%= item.id %> - <%=  item.name%></option>
-                            
-                            <%}) %>
-                        </select>
-                        
-                    </div>
-                    
-                    <div class="col-xs-4 mb-3">
+      <div class="col-md-4 m-3">
+        <input
+          type="hidden"
+          class="form-control"
+          name="pat_id"
+          id=""
+          placeholder="unit"
+          value=<%=pat_id %>
+        >
+      </div>
+      <button type="submit" class="btn btn-primary">Request Sample</button>
+  </form>
+</div>
 
-                        <select id="inputBloodType" name="bloodtype" placeholder="Blood Type" class="form-control "
-                            required>
-                            <option value="" disabled selected>Select Blood Group</option>
-                            <option value="A+"> A+</option>
-                            <option value="A-"> A-</option>
-                            <option value="B+"> B+</option>
-                            <option value="B-"> B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                            <option value="O+"> O+</option>
-                            <option value="O-"> O-</option>
-                        </select>
+<% } else {%>
 
-                    </div>
-
-                    <div class="col-xs-4 mb-3">
-                        <input type="hidden" class="form-control " name="pat_id" id="" value=<%=pat_id %>
-                        placeholder="unit" >
-                    </div>
-                    <button type="submit" class="btn btn-primary">Request Sample</button>
-                </div>
-            </form>
-        </div>
-
-        <% } else {%>
-
-            <div>
-                <h2>Blood Bank is empty.</h2>
-            </div>
-            <%} %>
-
-                <%- include('footer'); -%>
+<div>
+  <h2>Blood Bank is empty.</h2>
+</div>
+<%} %> <%- include('footer'); -%>
