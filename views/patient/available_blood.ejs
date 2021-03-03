@@ -2,66 +2,66 @@
 
     <% if(blood_details.length>0) { %>
         <div>
-            <h2>view blood avaible in this hospitall. data from blood bank table</h2>
+            <h2>View blood available in the Blood Bank</h2>
         </div>
 
-        <table class="table" style="width:90vw">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Hospital Id</th>
-                    <th>Hospital Name</th>
-                    <th>A+</th>
-                    <th>A-</th>
-                    <th>B+</th>
-                    <th>B-</th>
-                    <th>AB+</th>
-                    <th>AB-</th>
-                    <th>O+</th>
-                    <th>O-</th>
-                    <!-- a_positive, a_negative, b_positive, b_negative, ab_positive, ab_negative, o_positive, o_negative -->
-                </tr>
-            </thead>
-            <tbody>
-                <% blood_details.forEach(function (item) { %>
+        <div class="big-table-parent">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>
-                            <%= item.id %>
-                        </td>
-                        <td>
-                            <%= item.hospital_id %>
-                        </td>
-                        <td>
-                            <%= item.hospital_name %>
-                        </td>
-                        <td>
-                            <%= item.a_positive %>
-                        </td>
-                        <td>
-                            <%= item.a_negative %>
-                        </td>
-                        <td>
-                            <%= item.b_positive %>
-                        </td>
-                        <td>
-                            <%= item.b_negative %>
-                        </td>
-                        <td>
-                            <%= item.ab_positive %>
-                        </td>
-                        <td>
-                            <%= item.ab_negative %>
-                        </td>
-                        <td>
-                            <%= item.o_positive %>
-                        </td>
-                        <td>
-                            <%= item.o_negative %>
-                        </td>
+                        <th>ID</th>
+                        <th>Hospital Name</th>
+                        <th>A+</th>
+                        <th>A-</th>
+                        <th>B+</th>
+                        <th>B-</th>
+                        <th>AB+</th>
+                        <th>AB-</th>
+                        <th>O+</th>
+                        <th>O-</th>
+                        <!-- a_positive, a_negative, b_positive, b_negative, ab_positive, ab_negative, o_positive, o_negative -->
                     </tr>
-                    <% }) %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% blood_details.forEach(function (item) { %>
+                        <tr>
+                            <td>
+                                <%= item.id %>
+                            </td>
+
+                            <td>
+                                <%= item.name %>
+
+                            </td>
+                            <td>
+                                <%= item.a_positive %>
+                            </td>
+                            <td>
+                                <%= item.a_negative %>
+                            </td>
+                            <td>
+                                <%= item.b_positive %>
+                            </td>
+                            <td>
+                                <%= item.b_negative %>
+                            </td>
+                            <td>
+                                <%= item.ab_positive %>
+                            </td>
+                            <td>
+                                <%= item.ab_negative %>
+                            </td>
+                            <td>
+                                <%= item.o_positive %>
+                            </td>
+                            <td>
+                                <%= item.o_negative %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
 
         <!-- request blood sample  -->
         <div class="container">
@@ -69,12 +69,10 @@
                 <div class="form-row">
 
                     <div class="col-md-4 mb-3">
-                        <input type="number" min="0" class="form-control " name="hosp_id" id="" placeholder="id"
+                        <input type="number" min="0" class="form-control " name="blood_bank_id" id="" placeholder="Blood bank id"
                             required>
                     </div>
-                    <!-- <div class="col-md-4 mb-3">
-                        <input type="text" min="0" class="form-control " name="hosp_name" id="" placeholder="name" required>
-                    </div> -->
+                    
                     <div class="col-md-4 mb-3">
 
                         <select id="inputBloodType" name="bloodtype" placeholder="Blood Type" class="form-control "
@@ -92,17 +90,12 @@
 
                     </div>
 
-                    <!-- <div class="col-md-4 mb-3">
-                        <input type="number" min="0" class="form-control " name="unit_requested" id=""
-                            placeholder="unit" required>
-                    </div> -->
                     <div class="col-md-4 mb-3">
                         <input type="hidden" class="form-control " name="pat_id" id="" value=<%=pat_id %>
                         placeholder="unit" >
                     </div>
-
+                    <button type="submit" class="btn btn-primary">Request Sample</button>
                 </div>
-                <button type="submit" class="btn btn-primary">Request Sample</button>
             </form>
         </div>
 
@@ -113,4 +106,4 @@
             </div>
             <%} %>
 
-<%- include('footer'); -%>
+                <%- include('footer'); -%>

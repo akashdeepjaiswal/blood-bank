@@ -1,71 +1,101 @@
 <%- include('header', {title:"Blood Information"}); -%>
 
 
-<% if(blood_details.length>0) { %> 
-    <center>
-    <div>
-        <h2>Data from blood bank table</h2>
-    </div>
+    <% if(blood_details.length>0) { %>
+        <center>
+            <div>
+                <h2>Your blood stock available in blood bank.</h2>
+            </div>
+
+            <div class="table-parent" >
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Feilds</th>
+                            <th>Values</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% blood_details.forEach(function (item) { %>
+                            <tr>
+                                <td>Blood-Bank ID</td>
+                                <td>
+                                    <%= item.id %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hospital ID</td>
+                                <td>
+                                    <%= item.hospital_id %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>A+</td>
+                                <td>
+                                    <%= item.a_positive %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>A-</td>
+                                <td>
+                                    <%= item.a_negative %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>B+</td>
+                                <td>
+                                    <%= item.b_positive %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>B-</td>
+                                <td>
+                                    <%= item.b_negative %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>AB+</td>
+                                <td>
+                                    <%= item.ab_positive %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>AB-</td>
+                                <td>
+                                    <%= item.ab_negative %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>O+</td>
+                                <td>
+                                    <%= item.o_positive %>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>0-</td>
+                                <td>
+                                    <%= item.o_negative %>
+                                </td>
+                            </tr>
+
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </center>
+
+        <% } else {%>
+
+            <div>
+                <h2>Your have no blood avaible in the blood bank.</h2>
+                <p>Please Update your Blood Bank via <strong>Add Blood</strong> tab.</p>
+            </div>
+            <%} %>
 
 
-    <table class="table"  style="width:90vw">  
-        <thead>  
-            <tr>  
-                <th>Feilds</th>  
-                <th>Values</th>  
-            </tr>  
-        </thead>  
-         <tbody>  
-         <% blood_details.forEach(function (item) { %>
-            <tr>
-                <td>Blood-Bank ID</td>  
-                <td><%= item.id %></td>  
-            </tr>
-            <tr>
-                <td>Hospital ID</td>
-                <td><%= item.hospital_id %></td></tr>
-            <tr>
-                <td>A+</td>
-                <td><%= item.a_positive %> </td></tr> 
-            <tr>
-                <td>A-</td>
-                <td><%= item.a_negative %> </td></tr> 
-            <tr>
-                <td>B+</td>
-                <td><%= item.b_positive %> </td></tr> 
-            <tr>
-                <td>B-</td>
-                <td><%= item.b_negative %> </td></tr> 
-            <tr>
-                <td>AB+</td>
-                <td><%= item.ab_positive %> </td></tr> 
-            <tr>
-                <td>AB-</td>
-                <td><%= item.ab_negative %> </td></tr> 
-            <tr>
-                <td>O+</td>
-                <td><%= item.o_positive %> </td></tr>
-            
-            <tr>
-                <td>0-</td>
-                <td><%= item.o_negative  %> </td></tr>
-                                             
-         <% }) %>
-         </tbody>
-    </table>   
-</center>
 
-    <% } else {%>
+                <!-- id,   -->
 
-        <div>
-        <h2>Your have no blood avaible in the blood bank.</h2>
-        <p>Please Update your Blood Bank via <strong>Add Blood</strong> tab.</p>
-    </div>
-    <%} %>
-  
-  
- 
-                    <!-- id,   -->
-                
-    
-    <%- include('footer'); -%>    
+
+                <%- include('footer'); -%>

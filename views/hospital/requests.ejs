@@ -1,8 +1,9 @@
 <%- include('header', {title:"Pending Requests"}); -%>
 
+<% if(request_details.length>0) { %>
     <div class="container">
-       
-            <table class="table" style="width:90vw; height:400px;">
+        <div class="big-table-parent">
+            <table class="table" >
                 <thead>
                     <tr>
                         <th>Request Id</th>
@@ -50,34 +51,17 @@
                         <% }) %>
                 </tbody>
             </table>
-       
+       </div>
     </div>
 
-    <!-- <div class="container">
-        <form method="post" action="/hospital/requests">
-            <div class="form-row">
+    <!-- <a class="nav-link" href="/hospital/approved-request">See Approved Request</a>
+    <a class="nav-link" href="/hospital/rejected-request">See Rejected Request</a> -->
 
-                <div class="col-md-4 mb-3">
-                    <input type="number" min="1" class="form-control " name="request_id" id="request_id" placeholder="Request id" required>
-                    <small class="form-text text-muted">Please choose the <strong>Request Id </strong>carefully. </small>
-                </div>
 
-                <div class="col-md-4 mb-3">
+    <% } else { %>
 
-                    <select id="inputBloodType" name="choice" placeholder="Your Choice" class="form-control "
-                        required>
-                        <option value="" disabled selected>Select your option</option>
-                        <option value="Y">Y</option>
-                        <option value="R">R </option>
-                    </select>
-                    <small class="text-muted">Y: <strong>Approve</strong> R: <strong>Reject </strong>. </small>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Approve/Reject</button>
-        </form>
-    </div> -->
+        <h2>No request received yet.</h2>
+ <%}%>
 
-    <a class="nav-link" href="/hospital/approved-request">See Approved Request</a>
-    <a class="nav-link" href="/hospital/rejected-request">See Rejected Request</a>
-
+    
     <%- include('footer'); -%>

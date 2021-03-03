@@ -1,14 +1,14 @@
 <%- include('header', {title:"Add Blood Info"}); -%>
 
+<center>
+  <h2>Add your Blood Stock to Blood Bank</h2>
 
-  <h2>Add Available Blood Type</h2>
-
-  <div class="container">
+  <div class="container" style="margin: 5%;">
     <form action="/hospital/add-blood" method="post">
 
       <div class="form-row">
         <div class="col-md-4 mb-3">
-
+          <h3><label for="inputBloodType">Blood Type</label></h3>
           <select id="inputBloodType" name="bloodtype" placeholder="Blood Type" class="form-control " required>
             <option value="" disabled selected>Select your option</option>
             <option value="a_positive">A+</option>
@@ -24,24 +24,15 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <input type="number" min="0" class="form-control " name="unit" id="" placeholder="unit" required>
+          <h3><label for="units">Quantity</label></h3>
+          <input type="number" min="0" class="form-control " name="unit" id="units" placeholder="unit" required>
         </div>
 
       </div>
-      <button class="btn btn-primary" type="submit">Add</button>
+      <button class="btn btn-primary btn-lg" type="submit">Add</button>
     </form>
 
   </div>
-
-  <!-- <form>
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="First name">
-      </div>
-      <div class="col">
-        <input type="text" class="form-control" placeholder="Last name">
-      </div>
-    </div>
-  </form> -->
+</center>
 
   <%- include('footer'); -%>

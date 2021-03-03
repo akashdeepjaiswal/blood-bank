@@ -1,32 +1,55 @@
 <%- include('header', {title:"Hospital Dashboard"}); -%>
 
+    <center>
+        <div class="container dashboard-content">
 
-<table class="table" style="width:90vw">  
-    <img src="/hospital_dashboard.webp">
-    <thead>  
-        <tr>  
-            <th>Feilds</th>  
-            <th>Your Details</th>  
-        </tr>  
-    </thead>  
-     <tbody>  
-        <tr>
-            <td>ID</td>  
-            <td><%= id %></td>  
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td><%= name %></td></tr>
-        <tr>
-            <td>Email</td>
-            <td><%= email %> </td></tr> 
-        <tr>
-            <td>Password</td>
-            <td><%= password %> </td></tr> 
-        <tr>
-            <td>Contact</td>
-            <td><%= contact %> </td></tr>                  
-     </tbody>
-</table>
-<%- include('footer'); -%>
-
+            <div class="dashbord-left">
+                <img src="/hospital_dashboard.webp">
+            </div>
+    
+            <div class="dashbord-right table-parent">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Feilds</th>
+                            <th>Your Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ID</td>
+                            <td>
+                                <%= id %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>
+                                <%= name %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>
+                                <%= email %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td>
+                                <%= password %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Contact</td>
+                            <td>
+                                <%= contact %>
+                            </td>
+                        </tr>
+                    </tbody>
+    
+                </table>
+            </div>
+        </div>
+    </center>
+    <%- include('footer'); -%>

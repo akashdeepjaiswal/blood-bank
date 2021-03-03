@@ -15,34 +15,12 @@ p {
     color: #8f8f8f;
 }
 
-
-/* Headings */
-
-.big-heading {
-    font-weight: 900;
-    font-size: 3.5rem;
-    line-height: 1.5;
-}
-
-.section-heading {
-    font-weight: 700;
-    font-size: 3rem;
-    line-height: 1.5;
-}
-
-.container-fluid {
-    /* padding: 7% 15%; */
-}
-
-
 /* section  */
 
 .colored-section {
     background-color: #ff4c68;
     color: #fff;
 }
-
-
 
 /* Navigation Bar */
 
@@ -67,37 +45,108 @@ p {
 }
 
 
-
-
-#title .container-fluid {
-    /* padding: 3% 7% 15%;
-    text-align: left; */
+#features {
+    position: relative;
+    z-index: 1;
 }
 
-
-/* Download button */
-
-.download-button {
-    margin: 5% 3% 5% 0;
+.feature-box {
+    padding: 3%;
 }
 
 
 
+.icon {
+    color: #ef8172;
+    margin-bottom: 1rem;
+}
+
+.icon:hover {
+    color: #ff4c68;
+}
+
+.bottom-section{
+
+    margin: 2% 10% 0% 10%;
+    padding-top: 2rem;
+ 
+}
+
+.blood-bank-image{ 
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+        width: 100%; 
+        max-width: 700px; 
+        height: 400px; 
+
+}
 
 
 
+#footer{
+    position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem 0 1rem 0;
+
+}  
+
+
+.footer-icon {
+    margin: 20px 3px;
+    padding: 1rem;
+}
+
+
+.dashboard-content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard-content img{
+    display: flex;
+    height: 300px;
+    width: 300px;
+}
+
+.table-parent{
+    height:400px;
+    width: 400px;
+    overflow:auto;
+}
+
+.big-table-parent{
+    height:300px;
+    /* width: 500px; */
+    overflow:auto;
+}
+
+
+.table{
+
+    color: #6a5d5d;
+}
+
+.table tr:nth-of-type(odd){
+    background-color: #f3f2fB;
+}
 
 
 
-/* css media query */
-
-@media (max-width: 1028px) {
-    #title {
-        text-align: center;
+@media (max-width: 800px) {
+    .big-table-parent{
+        width: 400px;
     }
-    .title-img {
-        position: static;
-        transform: rotate(0);
-    }
 }
 
+
+@media (max-width: 990px) {
+    .bottom-section{
+        margin: 2% 0 0% 0%;
+    }
+    .dashboard-content{
+        flex-direction: column;
+    }
+}
